@@ -29,4 +29,7 @@ public class WorkOrder {
         this.status = status.PENDING;
     }
 
+    public Integer getId() {
+        return id;
+    }
 }
