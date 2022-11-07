@@ -33,4 +33,7 @@ public class Client {
         this.address = address;
     }
 
+    public Integer getId() {
+        return id;
+    }
 }
