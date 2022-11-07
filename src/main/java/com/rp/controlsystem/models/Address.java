@@ -19,4 +19,23 @@ public class Address {
     private String postalCode;
     @OneToOne
     private Client client;
+
+    protected Address() {
+    }
+
+    public Address(String street, Integer number, String city, String state, String postalCode) {
+        this.street = street;
+        this.number = number;
+        this.city = city;
+        this.state = state;
+        this.postalCode = postalCode;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 }

@@ -19,10 +19,10 @@ public class WorkOrder {
     private Equipment equipment;
     private Status status;
 
-    public WorkOrder() {
+    protected WorkOrder() {
     }
 
-    public WorkOrder(String description, Client client, Equipment equipment, Status status) {
+    public WorkOrder(String description, Client client, Equipment equipment) {
         this.description = description;
         this.client = client;
         this.equipment = equipment;
@@ -31,5 +31,37 @@ public class WorkOrder {
 
     public Integer getId() {
         return id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Equipment getEquipment() {
+        return equipment;
+    }
+
+    public void setEquipment(Equipment equipment) {
+        this.equipment = equipment;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

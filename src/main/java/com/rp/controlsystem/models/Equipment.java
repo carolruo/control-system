@@ -15,4 +15,13 @@ public class Equipment {
     private String type;
     private String brand;
 
+    protected Equipment() {
+    }
+
+    public Equipment(String model, String type, String brand) {
+        this.model = model;
+        this.type = type;
+        this.brand = brand;
+    }
+
 }

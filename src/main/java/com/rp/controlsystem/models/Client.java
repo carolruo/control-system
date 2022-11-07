@@ -23,7 +23,7 @@ public class Client {
     @OneToMany(mappedBy = "client")
     private List<WorkOrder> orders = new ArrayList<>();
 
-    public Client() {
+    protected Client() {
     }
 
     public Client(String name, String phoneNumber, String email, Address address) {
@@ -35,5 +35,13 @@ public class Client {
 
     public Integer getId() {
         return id;
+    }
+
+    public List<WorkOrder> getOrders() {
+        return orders;
+    }
+
+    public void addOrder(WorkOrder order) {
+        this.orders.add(order);
     }
 }
