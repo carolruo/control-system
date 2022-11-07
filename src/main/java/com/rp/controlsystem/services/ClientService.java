@@ -1,8 +1,8 @@
 package com.rp.controlsystem.services;
 
+import com.rp.controlsystem.exceptions.ObjectNotFoundException;
 import com.rp.controlsystem.models.Client;
 import com.rp.controlsystem.repositories.ClientRepository;
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class ClientService {
     }
 
     public Client findByEmail(String email) {
-        return clientRepository.findByEmail(email).orElseThrow(() -> new ObjectNotFoundException("obj nao encontrado", "client"));
+        return clientRepository.findByEmail(email).orElseThrow(() -> new ObjectNotFoundException("Cliente com o e-mail '" + email + "' não existe"));
     }
 
     public void save(Client client) {
