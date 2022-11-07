@@ -1,5 +1,7 @@
 package com.rp.controlsystem.models;
 
+import com.rp.controlsystem.models.enums.Status;
+
 import javax.persistence.*;
 
 @Entity

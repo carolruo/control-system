@@ -1,4 +1,4 @@
-package com.rp.controlsystem.models;
+package com.rp.controlsystem.models.enums;
 
 public enum Status {
     PENDING("Pendente"), 
