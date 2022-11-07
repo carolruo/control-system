@@ -4,13 +4,15 @@ import com.rp.controlsystem.models.Client;
 import com.rp.controlsystem.models.WorkOrder;
 import com.rp.controlsystem.services.WorkOrderService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
+import static java.lang.String.format;
+
 @RestController
+@RequestMapping("/ordens")
 public class WorkOrderController {
 
     private final WorkOrderService workOrderService;
@@ -20,16 +22,34 @@ public class WorkOrderController {
         this.workOrderService = workOrderService;
     }
 
-    @GetMapping("/ordens")
-    ResponseEntity<List<WorkOrder>> allClients() {
+    @GetMapping
+    ResponseEntity<List<WorkOrder>> findAll() {
         List<WorkOrder> all = workOrderService.findAll();
         return ResponseEntity.ok().body(all);
     }
 
-    @GetMapping("/ordens/{id}")
-    ResponseEntity<WorkOrder> clientByEmail(@PathVariable("id") String id) {
-        Integer intId = Integer.parseInt(id);
-        WorkOrder workOrder = workOrderService.findById(intId);
+    @GetMapping("/{id}")
+    ResponseEntity<WorkOrder> find(@PathVariable("id") Integer id) {
+        WorkOrder workOrder = workOrderService.findById(id);
         return ResponseEntity.ok().body(workOrder);
+    }
+
+    @PostMapping
+    ResponseEntity<Void> insert(@RequestBody  WorkOrder workOrder) {
+        workOrderService.save(workOrder);
+        URI location = URI.create(format("/courses/%s", workOrder.getId()));
+        return ResponseEntity.created(location).build();
+    }
+
+    @PutMapping("/{id}")
+    ResponseEntity<WorkOrder> update(@PathVariable("id") Integer id, @RequestBody WorkOrder workOrder) {
+        workOrderService.update(workOrder, id);
+        return ResponseEntity.ok().body(workOrder);
+    }
+
+    @DeleteMapping("/{id}")
+    ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
+        workOrderService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

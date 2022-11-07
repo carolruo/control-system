@@ -23,19 +23,33 @@ public class WorkOrderService {
     }
 
     public WorkOrder findById(Integer id) {
+
         return workOrderRepository
                 .findAll()
                 .stream()
                 .filter(workOrder -> workOrder.getId() == id)
                 .findFirst()
-                .orElseThrow(() -> new ObjectNotFoundException("Ordem de Serviço de id " + id + " inexistente"));
+                .orElseThrow(() -> new ObjectNotFoundException("Ordem de Serviço de id " + id + " não encontrada"));
     }
 
     public void save(WorkOrder workOrder) {
-        workOrderRepository.save(workOrder);
+            workOrderRepository.save(workOrder);
     }
 
-    public void update(Integer id) {
+    public WorkOrder update(WorkOrder newWorkOrder, Integer id) {
+        WorkOrder workOrder = findById(id);
 
+        workOrder.setClient(newWorkOrder.getClient());
+        workOrder.setDescription(newWorkOrder.getDescription());
+        workOrder.setEquipment(newWorkOrder.getEquipment());
+        workOrder.setStatus(newWorkOrder.getStatus());
+        workOrderRepository.save(workOrder);
+        return workOrder;
+    }
+
+    public void delete(Integer id) {
+        WorkOrder workOrder = findById(id);
+
+        workOrderRepository.delete(workOrder);
     }
 }
