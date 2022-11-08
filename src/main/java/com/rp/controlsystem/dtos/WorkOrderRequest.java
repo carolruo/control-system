@@ -22,12 +22,6 @@ public class WorkOrderRequest {
     public WorkOrderRequest() {
     }
 
-    public WorkOrderRequest(String description, Integer clientId, Equipment equipment) {
-        this.description = description;
-        this.clientId = clientId;
-        this.equipment = equipment;
-    }
-
     public WorkOrderRequest(String description, Integer clientId, Equipment equipment, Status status) {
         this.description = description;
         this.clientId = clientId;

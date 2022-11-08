@@ -8,6 +8,7 @@ import com.rp.controlsystem.models.WorkOrder;
 import com.rp.controlsystem.repositories.WorkOrderRepository;
 import org.springframework.stereotype.Service;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 @Service
@@ -15,11 +16,13 @@ public class WorkOrderService {
 
     private final WorkOrderRepository workOrderRepository;
     private final ClientService clientService;
+    private final EquipmentService equipmentService;
 
 
-    public WorkOrderService(WorkOrderRepository workOrderRepository, ClientService clientService) {
+    public WorkOrderService(WorkOrderRepository workOrderRepository, ClientService clientService, EquipmentService equipmentService) {
         this.workOrderRepository = workOrderRepository;
         this.clientService = clientService;
+        this.equipmentService = equipmentService;
     }
 
     public List<WorkOrder> findAll() {
@@ -51,10 +54,15 @@ public class WorkOrderService {
 
         workOrder.setDescription(newWorkOrder.getDescription());
         workOrder.setClient(clientService.findById(newWorkOrder.getClientId()));
-        workOrder.setEquipment(newWorkOrder.getEquipment());
+
+        workOrder.setEquipment(equipmentService.findByModelAndBrand(newWorkOrder.getEquipment().getModel(), newWorkOrder.getEquipment().getBrand()));
         workOrder.setStatus(newWorkOrder.getStatus());
 
-        workOrderRepository.save(workOrder);
+        try {
+            workOrderRepository.save(workOrder);
+        } catch (Exception e) {
+            throw new ObjectNotFoundException("Equipamento não encontrado no sistema");
+        }
         return workOrder;
     }
 
