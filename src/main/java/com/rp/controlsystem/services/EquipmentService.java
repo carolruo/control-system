@@ -19,6 +19,6 @@ public class EquipmentService {
     }
 
     public Equipment findByModelAndBrand(String model, String brand) {
-        return equipmentRepository.findByModelAndBrand(model, brand);
+        return equipmentRepository.findByModelAndBrand(model, brand).orElseThrow(() -> new ObjectNotFoundException("Equipamento não cadastrado. Modelo: " + model + " Marca: " + brand));
     }
 }

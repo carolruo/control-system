@@ -24,6 +24,8 @@ public class WorkOrder {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "equipment_id")
     private Equipment equipment;
+
+    @NotNull
     private Status status;
 
     protected WorkOrder() {

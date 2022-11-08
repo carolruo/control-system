@@ -4,6 +4,7 @@ import com.rp.controlsystem.models.Equipment;
 import com.rp.controlsystem.models.enums.Status;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class WorkOrderRequest {
 
@@ -16,7 +17,7 @@ public class WorkOrderRequest {
     @NotBlank
     private Equipment equipment;
 
-    @NotBlank
+    @NotNull
     private Status status;
 
     public WorkOrderRequest() {

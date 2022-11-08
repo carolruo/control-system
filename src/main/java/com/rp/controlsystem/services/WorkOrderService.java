@@ -57,18 +57,12 @@ public class WorkOrderService {
 
         workOrder.setEquipment(equipmentService.findByModelAndBrand(newWorkOrder.getEquipment().getModel(), newWorkOrder.getEquipment().getBrand()));
         workOrder.setStatus(newWorkOrder.getStatus());
-
-        try {
-            workOrderRepository.save(workOrder);
-        } catch (Exception e) {
-            throw new ObjectNotFoundException("Equipamento não encontrado no sistema");
-        }
+        workOrderRepository.save(workOrder);
         return workOrder;
     }
 
     public void delete(Integer id) {
         WorkOrder workOrder = findById(id);
-
         workOrderRepository.delete(workOrder);
     }
 }
