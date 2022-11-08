@@ -44,14 +44,14 @@ public class ControlSystemApplication implements CommandLineRunner {
 		address2.setClient(c2);
 		clientRepository.saveAll(Arrays.asList(c1, c2));
 
-		Equipment e1 = new Equipment("TV Samsung VG234", "eletronico", "Samsung");
-		Equipment e2 = new Equipment("Smartphone Samsung 12", "celular", "Samsung");
-		equipmentRepository.saveAll(Arrays.asList(e1, e2));
-
-		WorkOrder w1 = new WorkOrder("Transistor queimado", c1, e2);
-		WorkOrder w2 = new WorkOrder("Tela quebrada", c2, e1);
-		workOrderRepository.saveAll(Arrays.asList(w1, w2));
-		c1.addOrder(w1);
-		c2.addOrder(w2);
+//		Equipment e1 = new Equipment("TV Samsung VG234", "eletronico", "Samsung");
+//		Equipment e2 = new Equipment("Smartphone Samsung 12", "celular", "Samsung");
+//		equipmentRepository.saveAll(Arrays.asList(e1, e2));
+//
+//		WorkOrder w1 = new WorkOrder("Transistor queimado", c1, e2);
+//		WorkOrder w2 = new WorkOrder("Tela quebrada", c2, e1);
+//		workOrderRepository.saveAll(Arrays.asList(w1, w2));
+//		c1.addOrder(w1);
+//		c2.addOrder(w2);
 	}
 }

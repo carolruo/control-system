@@ -11,10 +11,10 @@ public class WorkOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String description;
-    @ManyToOne(cascade=CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cliente_id")
     private Client client;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "equipment_id")
     private Equipment equipment;
     private Status status;

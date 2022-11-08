@@ -22,7 +22,7 @@ public class Client {
     @JoinColumn(name = "address_id")
     private Address address;
     @JsonIgnore
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<WorkOrder> orders = new ArrayList<>();
 
     protected Client() {

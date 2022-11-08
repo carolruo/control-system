@@ -3,6 +3,7 @@ package com.rp.controlsystem.services;
 import com.rp.controlsystem.dtos.WorkOrderRequest;
 import com.rp.controlsystem.exceptions.ObjectNotFoundException;
 import com.rp.controlsystem.models.Client;
+import com.rp.controlsystem.models.Equipment;
 import com.rp.controlsystem.models.WorkOrder;
 import com.rp.controlsystem.repositories.WorkOrderRepository;
 import org.springframework.stereotype.Service;
@@ -37,7 +38,11 @@ public class WorkOrderService {
 
     public void save(WorkOrderRequest workOrderRequest) {
         Client client = clientService.findById(workOrderRequest.getClientId());
-        WorkOrder workOrder = new WorkOrder(workOrderRequest.getDescription(), client, workOrderRequest.getEquipment());
+        Equipment equipment = workOrderRequest.getEquipment();
+        WorkOrder workOrder = new WorkOrder(workOrderRequest.getDescription(), client, equipment);
+        equipment.setBrand(workOrderRequest.getEquipment().getBrand());
+        equipment.setModel(workOrderRequest.getEquipment().getModel());
+        equipment.setType(workOrderRequest.getEquipment().getType());
 
         workOrderRepository.save(workOrder);
     }
