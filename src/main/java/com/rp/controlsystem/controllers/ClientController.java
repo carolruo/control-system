@@ -31,8 +31,8 @@ public class ClientController {
     }
 
     @PostMapping
-    ResponseEntity<Void> insert(@RequestBody Client clientRequest) {
-        clientService.save(clientRequest);
+    ResponseEntity<Void> insert(@RequestBody Client client) {
+        clientService.save(client);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

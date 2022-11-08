@@ -34,15 +34,15 @@ public class ControlSystemApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Address address1 = new Address("Rua das Rosas", 10, "Sao paulo", "SP", "17524-213");
-		Address address2 = new Address("Rua das Camelias", 10, "Pelotas", "RS", "54524-298");
-		addressRepository.saveAll(Arrays.asList(address1, address2));
-
-		Client c1 = new Client("Jasmim", "1498273456", "jasmim@gmail", address1);
-		Client c2 = new Client("Joao", "4198273452", "joao@gmail", address2);
-		address1.setClient(c1);
-		address2.setClient(c2);
-		clientRepository.saveAll(Arrays.asList(c1, c2));
+//		Address address1 = new Address("Rua das Rosas", 10, "Sao paulo", "SP", "17524-213");
+//		Address address2 = new Address("Rua das Camelias", 10, "Pelotas", "RS", "54524-298");
+//		addressRepository.saveAll(Arrays.asList(address1, address2));
+//
+//		Client c1 = new Client("Jasmim", "1498273456", "jasmim@gmail", address1);
+//		Client c2 = new Client("Joao", "4198273452", "joao@gmail", address2);
+//		address1.setClient(c1);
+//		address2.setClient(c2);
+//		clientRepository.saveAll(Arrays.asList(c1, c2));
 
 //		Equipment e1 = new Equipment("TV Samsung VG234", "eletronico", "Samsung");
 //		Equipment e2 = new Equipment("Smartphone Samsung 12", "celular", "Samsung");

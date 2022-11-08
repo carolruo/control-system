@@ -1,6 +1,7 @@
 package com.rp.controlsystem.services;
 
 import com.rp.controlsystem.exceptions.ObjectNotFoundException;
+import com.rp.controlsystem.models.Address;
 import com.rp.controlsystem.models.Client;
 import com.rp.controlsystem.repositories.ClientRepository;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ public class ClientService {
     }
 
     public void save(Client client) {
+        client.getAddress().setClient(client);
         clientRepository.save(client);
     }
 }

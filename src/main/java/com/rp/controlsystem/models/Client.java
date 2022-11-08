@@ -18,8 +18,7 @@ public class Client {
     private String phoneNumber;
     @Column(unique = true)
     private String email;
-    @OneToOne
-    @JoinColumn(name = "address_id")
+    @OneToOne(cascade = CascadeType.ALL)
     private Address address;
     @JsonIgnore
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
@@ -41,6 +40,22 @@ public class Client {
 
     public List<WorkOrder> getOrders() {
         return orders;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Address getAddress() {
+        return address;
     }
 
     public void addOrder(WorkOrder order) {
