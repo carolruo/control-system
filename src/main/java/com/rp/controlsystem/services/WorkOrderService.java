@@ -43,17 +43,17 @@ public class WorkOrderService {
         equipment.setBrand(workOrderRequest.getEquipment().getBrand());
         equipment.setModel(workOrderRequest.getEquipment().getModel());
         equipment.setType(workOrderRequest.getEquipment().getType());
-
         workOrderRepository.save(workOrder);
     }
 
-    public WorkOrder update(WorkOrder newWorkOrder, Integer id) {
+    public WorkOrder update(WorkOrderRequest newWorkOrder, Integer id) {
         WorkOrder workOrder = findById(id);
 
-        workOrder.setClient(newWorkOrder.getClient());
         workOrder.setDescription(newWorkOrder.getDescription());
+        workOrder.setClient(clientService.findById(newWorkOrder.getClientId()));
         workOrder.setEquipment(newWorkOrder.getEquipment());
         workOrder.setStatus(newWorkOrder.getStatus());
+
         workOrderRepository.save(workOrder);
         return workOrder;
     }

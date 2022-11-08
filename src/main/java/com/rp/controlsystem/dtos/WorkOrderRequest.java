@@ -1,6 +1,7 @@
 package com.rp.controlsystem.dtos;
 
 import com.rp.controlsystem.models.Equipment;
+import com.rp.controlsystem.models.enums.Status;
 
 public class WorkOrderRequest {
 
@@ -9,11 +10,22 @@ public class WorkOrderRequest {
     private Integer clientId;
 
     private Equipment equipment;
+    private Status status;
+
+    public WorkOrderRequest() {
+    }
 
     public WorkOrderRequest(String description, Integer clientId, Equipment equipment) {
         this.description = description;
         this.clientId = clientId;
         this.equipment = equipment;
+    }
+
+    public WorkOrderRequest(String description, Integer clientId, Equipment equipment, Status status) {
+        this.description = description;
+        this.clientId = clientId;
+        this.equipment = equipment;
+        this.status = status;
     }
 
     public Integer getClientId() {
@@ -26,5 +38,9 @@ public class WorkOrderRequest {
 
     public Equipment getEquipment() {
         return equipment;
+    }
+
+    public Status getStatus() {
+        return status;
     }
 }

@@ -46,8 +46,8 @@ public class WorkOrderController {
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<WorkOrder> update(@PathVariable("id") Integer id, @RequestBody WorkOrder workOrder) {
-        workOrderService.update(workOrder, id);
+    ResponseEntity<WorkOrder> update(@PathVariable("id") Integer id, @RequestBody WorkOrderRequest workOrderRequest) {
+        WorkOrder workOrder = workOrderService.update(workOrderRequest, id);
         return ResponseEntity.ok().body(workOrder);
     }
 

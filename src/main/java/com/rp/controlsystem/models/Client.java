@@ -21,7 +21,7 @@ public class Client {
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
     @JsonIgnore
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client")
     private List<WorkOrder> orders = new ArrayList<>();
 
     protected Client() {

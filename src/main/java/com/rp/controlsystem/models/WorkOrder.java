@@ -11,7 +11,7 @@ public class WorkOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String description;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "cliente_id")
     private Client client;
     @ManyToOne(cascade = CascadeType.ALL)
@@ -27,6 +27,13 @@ public class WorkOrder {
         this.client = client;
         this.equipment = equipment;
         this.status = status.PENDING;
+    }
+
+    public WorkOrder(String description, Client client, Equipment equipment, Status status) {
+        this.description = description;
+        this.client = client;
+        this.equipment = equipment;
+        this.status = status;
     }
 
     public Integer getId() {
