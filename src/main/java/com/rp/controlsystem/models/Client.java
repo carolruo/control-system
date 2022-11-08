@@ -1,5 +1,7 @@
 package com.rp.controlsystem.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.persistence.OneToOne;
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ public class Client {
     @OneToOne
     @JoinColumn(name = "address_id")
     private Address address;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<WorkOrder> orders = new ArrayList<>();
 

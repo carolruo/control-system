@@ -1,8 +1,11 @@
 package com.rp.controlsystem.controllers;
 
+import com.rp.controlsystem.dtos.WorkOrderRequest;
 import com.rp.controlsystem.models.Client;
 import com.rp.controlsystem.models.WorkOrder;
+import com.rp.controlsystem.services.ClientService;
 import com.rp.controlsystem.services.WorkOrderService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,10 +19,12 @@ import static java.lang.String.format;
 public class WorkOrderController {
 
     private final WorkOrderService workOrderService;
+    private final ClientService clientService;
 
 
-    public WorkOrderController(WorkOrderService workOrderService) {
+    public WorkOrderController(WorkOrderService workOrderService, ClientService clientService) {
         this.workOrderService = workOrderService;
+        this.clientService = clientService;
     }
 
     @GetMapping
@@ -35,10 +40,9 @@ public class WorkOrderController {
     }
 
     @PostMapping
-    ResponseEntity<Void> insert(@RequestBody  WorkOrder workOrder) {
-        workOrderService.save(workOrder);
-        URI location = URI.create(format("/courses/%s", workOrder.getId()));
-        return ResponseEntity.created(location).build();
+    ResponseEntity<Void> insert(@RequestBody WorkOrderRequest workOrderRequest) {
+        workOrderService.save(workOrderRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{id}")

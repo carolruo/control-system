@@ -5,7 +5,6 @@ import com.rp.controlsystem.services.ClientService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -25,9 +24,9 @@ public class ClientController {
         return ResponseEntity.ok().body(all);
     }
 
-    @GetMapping("/clientes/{email}")
-    ResponseEntity<Client> clientByEmail(@PathVariable("email") String email) {
-        Client client = clientService.findByEmail(email);
+    @GetMapping("/clientes/{id}")
+    ResponseEntity<Client> clientById(@PathVariable("id") Integer id) {
+        Client client = clientService.findById(id);
         return ResponseEntity.ok().body(client);
     }
 

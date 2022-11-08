@@ -20,8 +20,8 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
-    public Client findByEmail(String email) {
-        return clientRepository.findByEmail(email).orElseThrow(() -> new ObjectNotFoundException("Cliente com o e-mail '" + email + "' não existe"));
+    public Client findById(Integer id) {
+        return clientRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Cliente com o Id '" + id + "' não existe"));
     }
 
     public void save(Client client) {

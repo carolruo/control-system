@@ -1,21 +1,24 @@
 package com.rp.controlsystem.services;
 
+import com.rp.controlsystem.dtos.WorkOrderRequest;
 import com.rp.controlsystem.exceptions.ObjectNotFoundException;
+import com.rp.controlsystem.models.Client;
 import com.rp.controlsystem.models.WorkOrder;
 import com.rp.controlsystem.repositories.WorkOrderRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class WorkOrderService {
 
     private final WorkOrderRepository workOrderRepository;
+    private final ClientService clientService;
 
 
-    public WorkOrderService(WorkOrderRepository workOrderRepository) {
+    public WorkOrderService(WorkOrderRepository workOrderRepository, ClientService clientService) {
         this.workOrderRepository = workOrderRepository;
+        this.clientService = clientService;
     }
 
     public List<WorkOrder> findAll() {
@@ -32,8 +35,11 @@ public class WorkOrderService {
                 .orElseThrow(() -> new ObjectNotFoundException("Ordem de Serviço de id " + id + " não encontrada"));
     }
 
-    public void save(WorkOrder workOrder) {
-            workOrderRepository.save(workOrder);
+    public void save(WorkOrderRequest workOrderRequest) {
+        Client client = clientService.findById(workOrderRequest.getClientId());
+        WorkOrder workOrder = new WorkOrder(workOrderRequest.getDescription(), client, workOrderRequest.getEquipment());
+
+        workOrderRepository.save(workOrder);
     }
 
     public WorkOrder update(WorkOrder newWorkOrder, Integer id) {
