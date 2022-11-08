@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,13 +16,22 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @NotBlank
     private String name;
+
     @Column(unique = true)
     private String phoneNumber;
+
+    @NotBlank
+    @Email
     @Column(unique = true)
     private String email;
+
+    @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
+
     @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<WorkOrder> orders = new ArrayList<>();

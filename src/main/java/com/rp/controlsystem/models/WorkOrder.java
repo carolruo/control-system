@@ -3,6 +3,8 @@ package com.rp.controlsystem.models;
 import com.rp.controlsystem.models.enums.Status;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class WorkOrder {
@@ -10,10 +12,15 @@ public class WorkOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotBlank
     private String description;
+
+    @NotNull
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "cliente_id")
     private Client client;
+
+    @NotNull
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "equipment_id")
     private Equipment equipment;

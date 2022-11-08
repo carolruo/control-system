@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -31,7 +32,7 @@ public class ClientController {
     }
 
     @PostMapping
-    ResponseEntity<Void> insert(@RequestBody Client client) {
+    ResponseEntity<Void> insert(@Valid @RequestBody Client client) {
         clientService.save(client);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

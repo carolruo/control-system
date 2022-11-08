@@ -3,13 +3,20 @@ package com.rp.controlsystem.dtos;
 import com.rp.controlsystem.models.Equipment;
 import com.rp.controlsystem.models.enums.Status;
 
+import javax.validation.constraints.NotBlank;
+
 public class WorkOrderRequest {
 
+    @NotBlank
     private String description;
 
+    @NotBlank
     private Integer clientId;
 
+    @NotBlank
     private Equipment equipment;
+
+    @NotBlank
     private Status status;
 
     public WorkOrderRequest() {
