@@ -8,6 +8,9 @@ import com.rp.controlsystem.repositories.AddressRepository;
 import com.rp.controlsystem.repositories.ClientRepository;
 import com.rp.controlsystem.repositories.EquipmentRepository;
 import com.rp.controlsystem.repositories.WorkOrderRepository;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,6 +19,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.util.Arrays;
 
 @SpringBootApplication
+@OpenAPIDefinition(
+		info = @Info(title = "Control System", version = "1.0.0", description = "API REST Controle de Ordem de Serviço"),
+		servers= {
+				@Server(url = "http://localhost:8080"),
+		}
+)
 public class ControlSystemApplication implements CommandLineRunner {
 
 	@Autowired
