@@ -1,5 +1,7 @@
 package com.rp.controlsystem.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.rp.controlsystem.models.enums.Status;
 
 import javax.persistence.*;
@@ -30,8 +32,10 @@ public class WorkOrder {
     @NotNull(message = "{status.not.null}")
     private Status status;
 
+    @JsonInclude(Include.NON_NULL)
     private LocalDateTime startTime;
 
+    @JsonInclude(Include.NON_NULL)
     private LocalDateTime finishTime;
 
 //    private List<Reports> reports;
