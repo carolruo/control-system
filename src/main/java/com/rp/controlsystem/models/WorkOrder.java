@@ -25,7 +25,7 @@ public class WorkOrder {
     @JoinColumn(name = "equipment_id")
     private Equipment equipment;
 
-    @NotNull
+    @NotNull(message = "{status.not.null}")
     private Status status;
 
     protected WorkOrder() {

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class WorkOrderController {
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<WorkOrder> update(@PathVariable("id") Integer id, @RequestBody WorkOrderRequest workOrderRequest) {
+    ResponseEntity<WorkOrder> update(@PathVariable("id") Integer id, @RequestBody @Valid WorkOrderRequest workOrderRequest) {
         WorkOrder workOrder = workOrderService.update(workOrderRequest, id);
         return ResponseEntity.ok().body(workOrder);
     }

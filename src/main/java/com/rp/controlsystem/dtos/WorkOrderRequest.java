@@ -11,10 +11,10 @@ public class WorkOrderRequest {
     @NotBlank
     private String description;
 
-    @NotBlank
+    @NotNull
     private Integer clientId;
 
-    @NotBlank
+    @NotNull
     private Equipment equipment;
 
     @NotNull

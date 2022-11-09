@@ -32,7 +32,7 @@ public class ClientController {
     }
 
     @PostMapping
-    ResponseEntity<Void> insert(@Valid @RequestBody Client client) {
+    ResponseEntity<Void> insert(@RequestBody @Valid Client client) {
         clientService.save(client);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
