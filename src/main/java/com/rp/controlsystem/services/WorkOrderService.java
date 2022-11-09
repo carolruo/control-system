@@ -10,7 +10,9 @@ import com.rp.controlsystem.repositories.WorkOrderRepository;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolationException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class WorkOrderService {
@@ -76,5 +78,9 @@ public class WorkOrderService {
     public void delete(Integer id) {
         WorkOrder workOrder = findById(id);
         workOrderRepository.delete(workOrder);
+    }
+
+    public List<WorkOrder> findPending() {
+        return findAll().stream().filter(s -> s.getStatus().equals(Status.PENDING)).collect(Collectors.toList());
     }
 }

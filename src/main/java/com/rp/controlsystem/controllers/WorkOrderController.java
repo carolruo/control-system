@@ -57,4 +57,10 @@ public class WorkOrderController {
         workOrderService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/pendentes")
+    ResponseEntity<List<WorkOrder>> findPending() {
+        List<WorkOrder> pendings = workOrderService.findPending();
+        return ResponseEntity.ok().body(pendings);
+    }
 }
