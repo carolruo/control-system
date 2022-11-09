@@ -5,6 +5,8 @@ import com.rp.controlsystem.models.enums.Status;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class WorkOrder {
@@ -27,6 +29,12 @@ public class WorkOrder {
 
     @NotNull(message = "{status.not.null}")
     private Status status;
+
+    private LocalDateTime startTime;
+
+    private LocalDateTime finishTime;
+
+//    private List<Reports> reports;
 
     protected WorkOrder() {
     }
@@ -79,5 +87,21 @@ public class WorkOrder {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalDateTime getFinishTime() {
+        return finishTime;
+    }
+
+    public void setFinishTime(LocalDateTime finishTime) {
+        this.finishTime = finishTime;
     }
 }

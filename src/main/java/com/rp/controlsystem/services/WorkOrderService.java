@@ -9,8 +9,7 @@ import com.rp.controlsystem.models.enums.Status;
 import com.rp.controlsystem.repositories.WorkOrderRepository;
 import org.springframework.stereotype.Service;
 
-import javax.validation.ConstraintViolationException;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -71,8 +70,23 @@ public class WorkOrderService {
         workOrder.setEquipment(equipmentService.findByModelAndBrand(newWorkOrder.getEquipment().getModel(), newWorkOrder.getEquipment().getBrand()));
         workOrder.setStatus(newWorkOrder.getStatus());
 
+        setOrderStartTime(newWorkOrder, workOrder);
+        setOrderFinishTime(newWorkOrder, workOrder);
+
         workOrderRepository.save(workOrder);
         return workOrder;
+    }
+
+    private void setOrderFinishTime(WorkOrderRequest newWorkOrder, WorkOrder workOrder) {
+        if (newWorkOrder.getStatus().equals(Status.DONE)) {
+            workOrder.setFinishTime(LocalDateTime.now());
+        }
+    }
+
+    private void setOrderStartTime(WorkOrderRequest newWorkOrder, WorkOrder workOrder) {
+        if (newWorkOrder.getStatus().equals(Status.ACTIVE)) {
+            workOrder.setStartTime(LocalDateTime.now());
+        }
     }
 
     public void delete(Integer id) {
