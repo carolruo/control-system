@@ -41,7 +41,7 @@ public class WorkOrderController {
     }
 
     @PostMapping
-    ResponseEntity<Void> insert(@RequestBody WorkOrderRequest workOrderRequest) {
+    ResponseEntity<Void> insert(@RequestBody @Valid WorkOrderRequest workOrderRequest) {
         workOrderService.save(workOrderRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

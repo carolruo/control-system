@@ -5,6 +5,7 @@ import com.rp.controlsystem.exceptions.ObjectNotFoundException;
 import com.rp.controlsystem.models.Client;
 import com.rp.controlsystem.models.Equipment;
 import com.rp.controlsystem.models.WorkOrder;
+import com.rp.controlsystem.models.enums.Status;
 import com.rp.controlsystem.repositories.WorkOrderRepository;
 import org.springframework.stereotype.Service;
 
@@ -41,12 +42,23 @@ public class WorkOrderService {
 
     public void save(WorkOrderRequest workOrderRequest) {
         Client client = clientService.findById(workOrderRequest.getClientId());
-        Equipment equipment = workOrderRequest.getEquipment();
+        Equipment equipment = getEquipment(workOrderRequest);
+        if (equipmentService.verifyDuplicity(equipment)) {
+            equipment = equipmentService.findByModelAndBrand(equipment.getModel(), equipment.getBrand());
+        }
+
+        equipmentService.save(equipment);
         WorkOrder workOrder = new WorkOrder(workOrderRequest.getDescription(), client, equipment);
+        workOrder.setStatus(Status.PENDING);
+        workOrderRepository.save(workOrder);
+    }
+
+    private Equipment getEquipment(WorkOrderRequest workOrderRequest) {
+        Equipment equipment = workOrderRequest.getEquipment();
         equipment.setBrand(workOrderRequest.getEquipment().getBrand());
         equipment.setModel(workOrderRequest.getEquipment().getModel());
         equipment.setType(workOrderRequest.getEquipment().getType());
-        workOrderRepository.save(workOrder);
+        return equipment;
     }
 
     public WorkOrder update(WorkOrderRequest newWorkOrder, Integer id) {
@@ -54,9 +66,9 @@ public class WorkOrderService {
 
         workOrder.setDescription(newWorkOrder.getDescription());
         workOrder.setClient(clientService.findById(newWorkOrder.getClientId()));
-
         workOrder.setEquipment(equipmentService.findByModelAndBrand(newWorkOrder.getEquipment().getModel(), newWorkOrder.getEquipment().getBrand()));
         workOrder.setStatus(newWorkOrder.getStatus());
+
         workOrderRepository.save(workOrder);
         return workOrder;
     }

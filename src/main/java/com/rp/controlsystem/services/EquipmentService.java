@@ -1,5 +1,6 @@
 package com.rp.controlsystem.services;
 
+import com.rp.controlsystem.exceptions.DuplicateObjectException;
 import com.rp.controlsystem.exceptions.ObjectNotFoundException;
 import com.rp.controlsystem.models.Equipment;
 import com.rp.controlsystem.repositories.EquipmentRepository;
@@ -20,5 +21,17 @@ public class EquipmentService {
 
     public Equipment findByModelAndBrand(String model, String brand) {
         return equipmentRepository.findByModelAndBrand(model, brand).orElseThrow(() -> new ObjectNotFoundException("Equipamento não cadastrado. Modelo: " + model + " Marca: " + brand));
+    }
+
+    public boolean verifyDuplicity(Equipment equipment) {
+        if (equipmentRepository.findByModelAndBrand(equipment.getModel(), equipment.getBrand()).isPresent()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void save(Equipment equipment) {
+            equipmentRepository.save(equipment);
     }
 }
