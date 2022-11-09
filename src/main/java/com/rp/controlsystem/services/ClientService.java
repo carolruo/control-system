@@ -1,5 +1,6 @@
 package com.rp.controlsystem.services;
 
+import com.rp.controlsystem.exceptions.DuplicateObjectException;
 import com.rp.controlsystem.exceptions.ObjectNotFoundException;
 import com.rp.controlsystem.models.Address;
 import com.rp.controlsystem.models.Client;
@@ -26,7 +27,21 @@ public class ClientService {
     }
 
     public void save(Client client) {
+        validateEmail(client);
+        validatePhoneNumber(client);
         client.getAddress().setClient(client);
         clientRepository.save(client);
+    }
+
+    private void validatePhoneNumber(Client client) {
+        if (clientRepository.findByPhoneNumber(client.getPhoneNumber()).isPresent()) {
+            throw new DuplicateObjectException("Cliente com esse telefone já cadastrado");
+        }
+    }
+
+    private void validateEmail(Client client) {
+        if (clientRepository.findByEmail(client.getEmail()).isPresent()) {
+            throw new DuplicateObjectException("Cliente com esse e-mail já cadastrado");
+        }
     }
 }
