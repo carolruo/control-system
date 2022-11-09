@@ -4,9 +4,11 @@ import com.rp.controlsystem.dtos.WorkOrderRequest;
 import com.rp.controlsystem.exceptions.ObjectNotFoundException;
 import com.rp.controlsystem.models.Client;
 import com.rp.controlsystem.models.Equipment;
+import com.rp.controlsystem.models.OrderReport;
 import com.rp.controlsystem.models.WorkOrder;
 import com.rp.controlsystem.models.enums.Status;
 import com.rp.controlsystem.repositories.WorkOrderRepository;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,12 +21,14 @@ public class WorkOrderService {
     private final WorkOrderRepository workOrderRepository;
     private final ClientService clientService;
     private final EquipmentService equipmentService;
+    private final OrderReportService orderReportService;
 
 
-    public WorkOrderService(WorkOrderRepository workOrderRepository, ClientService clientService, EquipmentService equipmentService) {
+    public WorkOrderService(WorkOrderRepository workOrderRepository, ClientService clientService, EquipmentService equipmentService, @Lazy OrderReportService orderReportService) {
         this.workOrderRepository = workOrderRepository;
         this.clientService = clientService;
         this.equipmentService = equipmentService;
+        this.orderReportService = orderReportService;
     }
 
     public List<WorkOrder> findAll() {
@@ -96,5 +100,11 @@ public class WorkOrderService {
 
     public List<WorkOrder> findPending() {
         return findAll().stream().filter(s -> s.getStatus().equals(Status.PENDING)).collect(Collectors.toList());
+    }
+
+    public List<OrderReport> findOrderReport(Integer id) {
+        WorkOrder workOrder = findById(id);
+        List<OrderReport> reports = orderReportService.findByWorkOrder(workOrder);
+        return reports;
     }
 }

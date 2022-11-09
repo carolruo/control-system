@@ -1,5 +1,6 @@
 package com.rp.controlsystem.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.rp.controlsystem.models.enums.Status;
@@ -25,11 +26,11 @@ public class WorkOrder {
     private Client client;
 
     @NotNull
-    @ManyToOne//(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "equipment_id")
     private Equipment equipment;
 
-    @NotNull(message = "{status.not.null}")
+    @NotNull
     private Status status;
 
     @JsonInclude(Include.NON_NULL)
@@ -38,7 +39,16 @@ public class WorkOrder {
     @JsonInclude(Include.NON_NULL)
     private LocalDateTime finishTime;
 
-//    private List<Reports> reports;
+    @OneToMany(mappedBy = "workOrder")
+    private List<OrderReport> reports = new java.util.ArrayList<>();
+
+    public List<OrderReport> getReports() {
+        return reports;
+    }
+
+    public void setReports(List<OrderReport> reports) {
+        this.reports = reports;
+    }
 
     protected WorkOrder() {
     }
