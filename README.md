@@ -40,4 +40,4 @@ Os seguintes endpoints estão implementados:
 - Foram implementados testes unitários
 #
 ### Features a serem implementadas e bugs a serem corrigidos:
-- Implementar maior cobertura de testes
+- Maior cobertura de testes
