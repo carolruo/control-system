@@ -8,6 +8,8 @@ import com.rp.controlsystem.services.ClientService;
 import com.rp.controlsystem.services.OrderReportService;
 import com.rp.controlsystem.services.WorkOrderService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,10 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@ApiResponses(value = {
+        @ApiResponse(responseCode = "400", description = "Requisição inválida (erro do cliente)"),
+        @ApiResponse(responseCode = "404", description = "Recurso não encontrado"),
+})
 @RequestMapping("/ordens")
 public class WorkOrderController {
 
@@ -31,6 +37,7 @@ public class WorkOrderController {
     }
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Busca todas as ordens de serviço cadastradas")
     ResponseEntity<List<WorkOrder>> findAll() {
         List<WorkOrder> all = workOrderService.findAll();
@@ -38,6 +45,7 @@ public class WorkOrderController {
     }
 
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Busca uma ordem de serviço por ID")
     ResponseEntity<WorkOrder> find(@PathVariable("id") Integer id) {
         WorkOrder workOrder = workOrderService.findById(id);
@@ -45,6 +53,7 @@ public class WorkOrderController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Cadastra uma ordem de serviço")
     ResponseEntity<Void> insert(@RequestBody @Valid WorkOrderRequest workOrderRequest) {
         workOrderService.save(workOrderRequest);
@@ -52,6 +61,7 @@ public class WorkOrderController {
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Atualiza uma ordem de serviço por ID")
     ResponseEntity<WorkOrder> update(@PathVariable("id") Integer id, @RequestBody @Valid WorkOrderRequest workOrderRequest) {
         WorkOrder workOrder = workOrderService.update(workOrderRequest, id);
@@ -59,6 +69,7 @@ public class WorkOrderController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Deleta uma ordem de serviço por ID")
     ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         workOrderService.delete(id);
@@ -66,6 +77,7 @@ public class WorkOrderController {
     }
 
     @GetMapping("/pendentes")
+    @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Busca ordens de serviços pendentes")
     ResponseEntity<List<WorkOrder>> findPendingOrder() {
         List<WorkOrder> pendings = workOrderService.findPending();
@@ -73,6 +85,7 @@ public class WorkOrderController {
     }
 
     @GetMapping("/{id}/reports")
+    @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Busca os registros já feitos em uma ordem de serviço por ID")
     ResponseEntity<List<OrderReport>> findOrderReport(@PathVariable("id") Integer id) {
         List<OrderReport> reports = workOrderService.findOrderReport(id);
@@ -80,6 +93,7 @@ public class WorkOrderController {
     }
 
     @PostMapping("/{id}/reports")
+    @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Cadastra um registro em uma ordem de serviço por ID")
     ResponseEntity<Void> insertReport(@RequestBody @Valid OrderReportRequest orderReportRequest) {
         orderReportService.save(orderReportRequest);

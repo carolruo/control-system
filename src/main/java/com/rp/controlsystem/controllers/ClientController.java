@@ -3,6 +3,8 @@ package com.rp.controlsystem.controllers;
 import com.rp.controlsystem.models.Client;
 import com.rp.controlsystem.services.ClientService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,10 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@ApiResponses (value = {
+        @ApiResponse(responseCode = "400", description = "Requisição inválida (erro do cliente)"),
+        @ApiResponse(responseCode = "404", description = "Cliente não encontrado", useReturnTypeSchema = true),
+})
 @RequestMapping("/clientes")
 public class ClientController {
 
@@ -21,6 +27,7 @@ public class ClientController {
     }
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Busca todos os clientes cadastrados")
     ResponseEntity<List<Client>> allClients() {
         List<Client> all = clientService.findAll();
@@ -28,6 +35,7 @@ public class ClientController {
     }
 
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Busca um cliente cadastrado por ID")
     ResponseEntity<Client> clientById(@PathVariable("id") Integer id) {
         Client client = clientService.findById(id);
@@ -35,6 +43,7 @@ public class ClientController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Cadastra um cliente")
     ResponseEntity<Void> insert(@RequestBody @Valid Client client) {
         clientService.save(client);
