@@ -15,7 +15,7 @@ public class OrderReport {
     private Integer id;
 
     @NotNull
-    private LocalDateTime reportTime;
+    private String reportTime;
 
     @NotBlank
     private String message;
@@ -28,10 +28,10 @@ public class OrderReport {
     protected OrderReport() {
     }
 
-    public OrderReport(String message, WorkOrder workOrder) {
+    public OrderReport(String message, WorkOrder workOrder, String reportTime) {
         this.message = message;
         this.workOrder = workOrder;
-        this.reportTime = LocalDateTime.now();
+        this.reportTime = reportTime;
     }
 
     public Integer getId() {
@@ -42,7 +42,7 @@ public class OrderReport {
         return message;
     }
 
-    public LocalDateTime getReportTime() {
+    public String getReportTime() {
         return reportTime;
     }
 
