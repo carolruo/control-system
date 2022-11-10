@@ -34,10 +34,10 @@ public class WorkOrder {
     private Status status;
 
     @JsonInclude(Include.NON_NULL)
-    private LocalDateTime startTime;
+    private String startTime;
 
     @JsonInclude(Include.NON_NULL)
-    private LocalDateTime finishTime;
+    private String finishTime;
 
     @OneToMany(mappedBy = "workOrder")
     private List<OrderReport> reports = new java.util.ArrayList<>();
@@ -103,19 +103,19 @@ public class WorkOrder {
         this.status = status;
     }
 
-    public LocalDateTime getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDateTime getFinishTime() {
+    public String getFinishTime() {
         return finishTime;
     }
 
-    public void setFinishTime(LocalDateTime finishTime) {
+    public void setFinishTime(String finishTime) {
         this.finishTime = finishTime;
     }
 }

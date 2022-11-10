@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,7 @@ public class WorkOrderService {
     private final ClientService clientService;
     private final EquipmentService equipmentService;
     private final OrderReportService orderReportService;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
 
     public WorkOrderService(WorkOrderRepository workOrderRepository, ClientService clientService, EquipmentService equipmentService, @Lazy OrderReportService orderReportService) {
@@ -83,13 +85,13 @@ public class WorkOrderService {
 
     private void setOrderFinishTime(WorkOrderRequest newWorkOrder, WorkOrder workOrder) {
         if (newWorkOrder.getStatus().equals(Status.DONE)) {
-            workOrder.setFinishTime(LocalDateTime.now());
+            workOrder.setFinishTime(LocalDateTime.now().format(formatter));
         }
     }
 
     private void setOrderStartTime(WorkOrderRequest newWorkOrder, WorkOrder workOrder) {
         if (newWorkOrder.getStatus().equals(Status.ACTIVE)) {
-            workOrder.setStartTime(LocalDateTime.now());
+            workOrder.setStartTime(LocalDateTime.now().format(formatter));
         }
     }
 
