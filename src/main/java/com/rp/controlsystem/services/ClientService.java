@@ -1,9 +1,11 @@
 package com.rp.controlsystem.services;
 
+import com.rp.controlsystem.dtos.ClientRequest;
 import com.rp.controlsystem.exceptions.DuplicateObjectException;
 import com.rp.controlsystem.exceptions.ObjectNotFoundException;
 import com.rp.controlsystem.models.Address;
 import com.rp.controlsystem.models.Client;
+import com.rp.controlsystem.models.WorkOrder;
 import com.rp.controlsystem.repositories.ClientRepository;
 import org.springframework.stereotype.Service;
 
@@ -43,5 +45,21 @@ public class ClientService {
         if (clientRepository.findByEmail(client.getEmail()).isPresent()) {
             throw new DuplicateObjectException("Cliente com esse e-mail já cadastrado");
         }
+    }
+
+    public Client update(ClientRequest clientRequest, Integer id) {
+        Client client = findById(id);
+
+        client.setName(clientRequest.getName());
+        client.setPhoneNumber(clientRequest.getPhoneNumber());
+        client.setAddress(clientRequest.getAddress());
+
+        clientRepository.save(client);
+        return client;
+    }
+
+    public void delete(Integer id) {
+        Client client = findById(id);
+        clientRepository.delete(client);
     }
 }
