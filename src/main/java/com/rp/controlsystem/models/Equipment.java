@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import java.util.Objects;
 
 @Entity
 public class Equipment {
@@ -61,5 +62,18 @@ public class Equipment {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Equipment equipment = (Equipment) o;
+        return model.equals(equipment.model) && type.equals(equipment.type) && brand.equals(equipment.brand);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(model, type, brand);
     }
 }

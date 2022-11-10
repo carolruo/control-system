@@ -24,11 +24,7 @@ public class EquipmentService {
     }
 
     public boolean verifyDuplicity(Equipment equipment) {
-        if (equipmentRepository.findByModelAndBrand(equipment.getModel(), equipment.getBrand()).isPresent()) {
-            return true;
-        } else {
-            return false;
-        }
+        return equipmentRepository.findAll().stream().anyMatch(e -> e.equals(equipment));
     }
 
     public void save(Equipment equipment) {

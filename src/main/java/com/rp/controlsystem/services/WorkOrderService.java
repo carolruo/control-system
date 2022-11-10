@@ -73,9 +73,15 @@ public class WorkOrderService {
 
         workOrder.setDescription(newWorkOrder.getDescription());
         workOrder.setClient(clientService.findById(newWorkOrder.getClientId()));
-        workOrder.setEquipment(equipmentService.findByModelAndBrand(newWorkOrder.getEquipment().getModel(), newWorkOrder.getEquipment().getBrand()));
-        workOrder.setStatus(newWorkOrder.getStatus());
 
+        if (equipmentService.verifyDuplicity(newWorkOrder.getEquipment())) {
+            workOrder.setEquipment(equipmentService.findByModelAndBrand(newWorkOrder.getEquipment().getModel(), newWorkOrder.getEquipment().getBrand()));
+        } else {
+            workOrder.setEquipment(newWorkOrder.getEquipment());
+            equipmentService.save(newWorkOrder.getEquipment());
+        }
+
+        workOrder.setStatus(newWorkOrder.getStatus());
         setOrderStartTime(newWorkOrder, workOrder);
         setOrderFinishTime(newWorkOrder, workOrder);
 
